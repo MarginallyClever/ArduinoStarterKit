@@ -1,0 +1,51 @@
+h1. LED8x8
+
+_Sample code for controlling a 16-pin 8x8 single color LED grid_
+
+h2. About
+
+This code will demonstrate control of an LED grid with a few different demos.
+
+When I received this 8x8 LED grid there was no documentation that made any sense.
+I've written a blog post about how I reverse engineered the interface and made it work.
+
+h2. Get it
+
+Please visit "Our homepage":http://www.marginallyclever.com/ for an examplanation of how it works.
+
+h2. Get help
+
+Please visit "the forums":https://marginallyclever.com/forum 
+
+h2. Special thanks
+
+Hey, thanks for taking the time to read this.  You're thorough.  I like that!
+
+h2. Notes
+
+More details are in the code itself.
+
+h2. Legal
+
+
+This file is part of LED8x8.
+
+LED8x8 is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+LED8x8 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Arduino Timer Interrupt. If not, see http://www.gnu.org/licenses/
+
+
+h2. See Also
+
+* "Our homepage":https://www.marginallyclever.com/ 
+* "The wiki":https://learn.marginallyclever.com/
+* "The forums":https://marginallyclever.com/forum/

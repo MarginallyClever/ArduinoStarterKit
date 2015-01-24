@@ -1,0 +1,30 @@
+h1. arduinoMorse
+
+_A Morse Code Blink Example_
+
+h2. About
+
+Morse was one of the early languages used to transmit information over telegraph wires, the precursor to telephones and the internet.
+Morse was communicated with a series of long and short pulses.
+
+h2. Get it
+
+Please visit "the tutorial homepage":http://www.marginallyclever.com/blog/2014/11/display-morse-code-arduino/ for an examplanation of how it works.
+
+h2. Get help
+
+Please visit "the forums":https://marginallyclever.com/forum 
+
+h2. Special thanks
+
+Hey, thanks for taking the time to read this.  You're thorough.  I like that!
+
+h2. Notes
+
+More details are in the code itself.
+
+h2. See Also
+
+* "Our homepage":https://www.marginallyclever.com/ 
+* "The wiki":https://learn.marginallyclever.com/
+* "The forums":https://marginallyclever.com/forum/
