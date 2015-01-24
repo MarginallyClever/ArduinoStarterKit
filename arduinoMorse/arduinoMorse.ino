@@ -8,7 +8,11 @@
 //
 // Must have "send new line" on in the Arduino serial window.
 // Only works with upper case letters.
-// 
+//
+// Try this demo with a piezo speaker instead of an LED!
+//
+// More codes obtained from http://en.wikipedia.org/wiki/Morse_code
+// Please support Wikipedia.
 //
 // Copyright at end of file.  Please see
 // http://www.github.com/MarginallyClever/arduinoMorse for more information.
