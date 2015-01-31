@@ -1,6 +1,5 @@
 //------------------------------------------------------------------------------
 // Morse Code Blink Example.
-//
 // dan@marginallyclever.com 2014-11-02
 //
 // Type an upper case message in the arduino serial window and this program
@@ -13,10 +12,10 @@
 //
 // More codes obtained from http://en.wikipedia.org/wiki/Morse_code
 // Please support Wikipedia.
-//
-// Copyright at end of file.  Please see
-// http://www.github.com/MarginallyClever/arduinoMorse for more information.
 //------------------------------------------------------------------------------
+// Copyright at end of file.  Please see
+// please see http://www.github.com/MarginallyClever/ArduinoStarterKit for more information.
+
 
 //------------------------------------------------------------------------------
 // constants
@@ -252,19 +251,19 @@ void blinkCodeSequence(int j) {
 
 
 /**
- * This file is part of arduinoMorse.
- *
- * arduinoMorse is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * arduinoMorse is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
- */
+* This file is part of ArduinoStarterKit.
+*
+* ArduinoStarterKit is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* ArduinoStarterKit is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Arduino Timer Interrupt. If not, see <http://www.gnu.org/licenses/>.
+*/
 
