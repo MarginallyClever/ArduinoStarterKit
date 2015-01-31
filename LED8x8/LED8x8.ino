@@ -18,7 +18,7 @@
 
 #define SCROLL_DELAY (30)
 
-
+/*
 // these pin numbers start at 1, because I was stupid.
 // a list of cathode pins, unsorted
 //const int cathode[8] = { 1,2,5,7,8,9,12,14 };
@@ -33,6 +33,16 @@ const int anode[8] = { 13,3,4,10,6,11,15,16 };
 
 // translate the pins on the LED panel to pins on the Arduino
 const int arduino_to_grid[16] = { 13,12,11,10, 16,17,18,19, 2,3,4,5, 6,7,8,9 };
+*/
+
+
+// a list of anode pins, sorted by top to bottom of the grid
+const int anode[8] = { 8,13,7,11,0,6,1,4 };
+// a list of cathode pins, sorted by left to right of the grid
+const int cathode[8] = { 12,2,3,9,5,10,14,15 };
+// translate the pins on the LED panel to pins on the Arduino
+const int arduino_to_grid[16] = { 13,12,11,10, 16,17,18,19, 2,3,4,5, 6,7,8,9 };
+
 
 // 1 means on
 // 0 means off
@@ -61,7 +71,7 @@ const int message[] = {
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int out(int x) {
-  return arduino_to_grid[anode[x]-1];
+  return arduino_to_grid[anode[x]];
 }
 
 
@@ -70,7 +80,7 @@ int out(int x) {
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int in(int y) {
-  return arduino_to_grid[cathode[y]-1];
+  return arduino_to_grid[cathode[y]];
 }
 
 
