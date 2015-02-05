@@ -64,7 +64,7 @@ void setup() {
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int out(int x) {
-  return arduino_to_grid[cathode[x]];
+  return arduino_to_grid[anode[x]];
 }
 
 
@@ -73,7 +73,7 @@ int out(int x) {
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int in(int y) {
-  return arduino_to_grid[anode[y]];
+  return arduino_to_grid[cathode[y]];
 }
 
 

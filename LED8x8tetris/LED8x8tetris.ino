@@ -277,7 +277,7 @@ char grid[8*8];
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int out(int x) {
-  return arduino_to_grid[cathode[x]];
+  return arduino_to_grid[anode[x]];
 }
 
 
@@ -286,7 +286,7 @@ int out(int x) {
 // then figures out which pin on the arduino matches that LED pin.
 // two translations!
 int in(int y) {
-  return arduino_to_grid[anode[y]];
+  return arduino_to_grid[cathode[y]];
 }
 
 
@@ -383,7 +383,7 @@ void delete_row(int y) {
 }
 
 
-void check_remove_lines() {
+void remove_full_rows() {
   int x, y, c;
   for(y=0;y<GRID_H;++y) {
     // count the full spaces in this row
@@ -505,6 +505,13 @@ void game_over() {
         p(x,y,150);
       }
     }
+    
+    // click the button?
+    if(digitalRead(1)==0) {
+      // restart!
+      setup();
+      return;
+    }
   }
 }
 
@@ -518,10 +525,8 @@ void try_to_drop_piece() {
     // hit something!
     // put it back
     add_piece_to_grid();
-    // remove full lines
-    check_remove_lines();
-    // check if the game is over
-    if(check_game_over()==1) {
+    remove_full_rows();
+    if(game_is_over()==1) {
       game_over();
     }
     // game isn't over, choose a new piece
@@ -549,8 +554,8 @@ void react_to_player() {
 }
 
 
-int check_game_over() {
-  // can the piece fit in this new location
+// can the piece fit in this new location
+int game_is_over() {
   int x,y;
   const char *piece = pieces[piece_id] + (piece_rotation * PIECE_H * PIECE_W);
   
