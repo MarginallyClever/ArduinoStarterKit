@@ -23,8 +23,6 @@ int is_on=0;
 
 void setup() {
   Serial.begin(57600);
-  pinMode(2,INPUT);
-  //digitalWrite(A0,HIGH);
   
   for(int i=0;i<MAX_SAMPLES;++i) {
     samples[i]=0;
@@ -33,11 +31,6 @@ void setup() {
 
 
 void loop() {
-  findOnOffEvent();
-}
-
-
-void findOnOffEvent() {
   int volume=analogRead(0);
   
   total -= samples[si];
@@ -45,7 +38,6 @@ void findOnOffEvent() {
   total += samples[si];
   if( mi < MAX_SAMPLES ) mi++;
   si = (si+1) % MAX_SAMPLES;
-  
   int average = total / mi;
   
   if( top < average ) top = average;
@@ -76,7 +68,7 @@ void findOnOffEvent() {
     if(is_on==1) {
       // silence is new
       if( c > MINIMUM ) {
-        // Was the noice a long or a short?
+        // Was the noise a long or a short?
         if( c > (AVG_LONG + AVG_SHORT)/2.0 ) {
           Serial.print('-');
         } else {
