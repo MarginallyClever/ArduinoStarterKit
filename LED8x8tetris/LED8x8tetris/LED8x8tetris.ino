@@ -31,13 +31,10 @@
 #define PIECE_W          (4)
 #define PIECE_H          (4)
 
-// how many kinds of pieces
-#define NUM_PIECE_TYPES  (7)
-
-#define JOYSTICK_DEAD_ZONE  (30)
-
-#define JOYSTICK_PIN     (0)
-#define PIEZO_PIN        (1)
+#define JOYSTICK_DEAD_ZONE  (20)
+#define JOYSTICK_BUTTON     (1)
+#define JOYSTICK_X          (0)
+#define JOYSTICK_Y          (1)
 
 #define _1088BS  // LED type
 
@@ -51,7 +48,6 @@ int anodes[] = { 9,4,19,6,10,18,11,16 };
 // x values
 int cathodes[] = { 5,12,13,8,17,7,3,2 };
 #endif
-
 
 
 // 1 color drawings of each piece in each rotation.
@@ -211,6 +207,9 @@ const char piece_O[] = {
 };
 
 
+// how many kinds of pieces
+#define NUM_PIECE_TYPES  (7)
+
 // An array of pointers!  
 const char *pieces[NUM_PIECE_TYPES] = {
   piece_S1,
@@ -241,8 +240,10 @@ int piece_rotation;
 int piece_x;
 int piece_y;
 
+// order of pieces coming up
 char piece_sequence[NUM_PIECE_TYPES];
 char sequence_i=NUM_PIECE_TYPES;
+
 
 // this controls how fast the player can move.
 long last_move;
@@ -289,10 +290,7 @@ void draw_grid() {
   }
 }
 
-// choose a new piece from the sequence.
-// the sequence is a random list that contains one of each piece.
-// that way you're guaranteed an even number of pieces over time,
-// tho the order is random.
+
 void choose_new_piece() {
   if( sequence_i >= NUM_PIECE_TYPES ) {
     // list exhausted
@@ -394,7 +392,7 @@ void remove_full_rows() {
 
 void try_to_move_piece_sideways() {
   // what does the joystick angle say
-  int dx = map(analogRead(0),0,1023,512,-512);
+  int dx = map(analogRead(0),0,1023,500,-500);
   
   int new_px = 0;
   // is the joystick really being pushed?
@@ -416,7 +414,7 @@ void try_to_rotate_piece() {
   int i_want_to_turn=0;
   
   // what does the joystick button say
-  int new_button = digitalRead(JOYSTICK_PIN);
+  int new_button = digitalRead(1);
   // if the button state has just changed AND it is being let go,
   if( new_button > 0 && old_button != new_button ) {
     i_want_to_turn=1;
@@ -424,7 +422,7 @@ void try_to_rotate_piece() {
   old_button=new_button;
   
   // up on joystick to rotate
-  int dy = map(analogRead(1),0,1023,512,-512);
+  int dy = map(analogRead(1),0,1023,-500,500);
   if(dy<-JOYSTICK_DEAD_ZONE) i_want_to_turn=1;
   
   if(i_want_to_turn==1 && i_want_to_turn != old_i_want_to_turn) {
@@ -492,6 +490,13 @@ void game_over() {
   int x,y;
 
   while(1) {
+    // Your homework: add a 'game over' animation here, then film it and tweet it to @marginallyc.
+    for(x=0;x<GRID_W;++x) {
+      for(y=0;y<GRID_H;++y) {
+        p(x,y,150);
+      }
+    }
+    
     // click the button?
     if(digitalRead(1)==0) {
       // restart!
@@ -522,7 +527,7 @@ void try_to_drop_piece() {
 
 
 void try_to_drop_faster() {
-  int y = map(analogRead(1),0,1023,512,-512);
+  int y = map(analogRead(1),0,1023,-500,500);
   if(y>JOYSTICK_DEAD_ZONE) {
     // player is holding joystick down, drop a little faster.
     try_to_drop_piece();
@@ -562,21 +567,18 @@ int game_is_over() {
 // called once when arduino reboots
 void setup() {
   int i;
-  // set all the pins to output.
   for(i=0;i<8;++i) {
+    // set all the pins to output.
     pinMode(anodes[i],OUTPUT);
     pinMode(cathodes[i],OUTPUT);
-
+    // turn on all resistors, should produce no light
     digitalWrite(anodes[i],LOW);
     digitalWrite(cathodes[i],HIGH);
   }
   
-  // set up speaker pin
-  pinMode(PIEZO_PIN, OUTPUT);
-  
   // set up joystick button
-  pinMode(JOYSTICK_PIN,INPUT);
-  digitalWrite(JOYSTICK_PIN,HIGH);
+  pinMode(1,INPUT);
+  digitalWrite(1,HIGH);
   
   // make sure arduino knows the grid is empty.
   for(i=0;i<GRID_W*GRID_H;++i) {
@@ -630,4 +632,5 @@ void loop() {
 * You should have received a copy of the GNU General Public License
 * along with Arduino Timer Interrupt. If not, see <http://www.gnu.org/licenses/>.
 */
+
 
