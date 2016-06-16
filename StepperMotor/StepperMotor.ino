@@ -1,135 +1,48 @@
-// Based on http://www.instructables.com/id/BYJ48-Stepper-Motor/step4/Modify-Code/
 
-#define IN1  8
-#define IN2  9
-#define IN3  10
-#define IN4  11
+/*
+  Stepper Motor Control - one revolution
 
-#define CLOCKWISE        (1)  // -1 to reverse
-#define COUNTERCLOCKWISE (-CLOCKWISE)
+  This program drives a unipolar or bipolar stepper motor.
+  The motor is attached to digital pins 8 - 11 of the Arduino.
 
-
-int stepper_steps = 0;
-char stepper_IN1;
-char stepper_IN2;
-char stepper_IN3;
-char stepper_IN4;
+  The motor should revolve one revolution in one direction, then
+  one revolution in the other direction.
 
 
-void stepper_attach(int a,int b,int c,int d) {
-  stepper_IN1=a;
-  stepper_IN2=b;
-  stepper_IN3=c;
-  stepper_IN4=d;
+  Created 11 Mar. 2007
+  Modified 30 Nov. 2009
+  by Tom Igoe
 
-  pinMode(stepper_IN1, OUTPUT); 
-  pinMode(stepper_IN2, OUTPUT); 
-  pinMode(stepper_IN3, OUTPUT); 
-  pinMode(stepper_IN4, OUTPUT); 
-}
+  Modified 2016-06-15 Dan Royer for Marginally Clever tutorial.
+*/
 
+#include <Stepper.h>
+
+const int stepsPerTurn = 64;
+const int gearReduction = 32;
+const int stepsPerRevolution = stepsPerTurn*gearReduction;
+
+// initialize the stepper library on pins 8 through 11:
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
 
 void setup() {
-  stepper_attach(8,9,10,11);
+  // initialize the serial port:
+  Serial.begin(9600);
+  Serial.print(stepsPerRevolution);
+  
+  // set the speed at 60 rpm:
+  myStepper.setSpeed(8);
 }
-
 
 void loop() {
-  unsigned long last_time;
-  unsigned long currentMillis ;
-  int steps_left=4095;
-  long time;
+  // step one revolution  in one direction:
+  Serial.println("clockwise");
+  myStepper.step(stepsPerRevolution);
+  delay(500);
 
-  while(steps_left>0){
-    currentMillis = micros();
-    if(currentMillis-last_time>=1000){
-      stepper(1,CLOCKWISE); 
-      time=time+micros()-last_time;
-      last_time=micros();
-      steps_left--;
-    }
-  }
-  Serial.println(time);
-  Serial.println("Wait...!");
-  delay(2000);
-  steps_left=4095;
-
-  while(steps_left>0){
-    currentMillis = micros();
-    if(currentMillis-last_time>=1000){
-      stepper(1,COUNTERCLOCKWISE); 
-      time=time+micros()-last_time;
-      last_time=micros();
-      steps_left--;
-    }
-  }
-  Serial.println(time);
-  Serial.println("Wait...!");
-  delay(2000);
+  // step one revolution in the other direction:
+  Serial.println("counterclockwise");
+  myStepper.step(-stepsPerRevolution);
+  delay(500);
 }
 
-
-// stepper(number of steps, CLOCKWISE);
-// stepper(number of steps, COUNTERCLOCKWISE);
-void stepper(int step_count,int direction) {
-  for (int x=0;x<xw;x++){
-    switch(stepper_steps){
-       case 0:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, HIGH);
-       break; 
-       case 1:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, HIGH);
-         digitalWrite(stepper_IN4, HIGH);
-       break; 
-       case 2:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, HIGH);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-       case 3:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, HIGH);
-         digitalWrite(stepper_IN3, HIGH);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-       case 4:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, HIGH);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-       case 5:
-         digitalWrite(stepper_IN1, HIGH); 
-         digitalWrite(stepper_IN2, HIGH);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-         case 6:
-         digitalWrite(stepper_IN1, HIGH); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-       case 7:
-         digitalWrite(stepper_IN1, HIGH); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, HIGH);
-       break; 
-       default:
-         digitalWrite(stepper_IN1, LOW); 
-         digitalWrite(stepper_IN2, LOW);
-         digitalWrite(stepper_IN3, LOW);
-         digitalWrite(stepper_IN4, LOW);
-       break; 
-    }
-
-    stepper_steps = ( stepper_steps + 7 + direction ) % 7;
-  }
-}
