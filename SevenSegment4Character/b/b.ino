@@ -9,7 +9,7 @@
 #define NUM_CHAR_PINS 4
 #define NUM_SEG_PINS  8
 
-// thousands, hundreds, tens, ones.
+// anodes: thousands, hundreds, tens, ones.
 int characterPins[NUM_CHAR_PINS] = {8,11,12,2};
 
 // aaa
@@ -19,7 +19,7 @@ int characterPins[NUM_CHAR_PINS] = {8,11,12,2};
 //e   c
 //e   c
 // ddd  h
-//                    a, b, c, d, e, f, g, h
+// cathodes:                      a, b, c, d, e, f, g, h
 int segmentPins[NUM_SEG_PINS] = { 9,13, 4, 6, 7,10, 3, 5};
 
 
