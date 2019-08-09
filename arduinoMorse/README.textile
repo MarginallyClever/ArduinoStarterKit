@@ -9,7 +9,7 @@ Morse was communicated with a series of long and short pulses.
 
 h2. Get it
 
-Please visit "the tutorial homepage":http://www.marginallyclever.com/blog/2014/11/display-morse-code-arduino/ for an examplanation of how it works.
+Please visit "the tutorial homepage":https://www.marginallyclever.com/2014/11/how-to-blink-morse-code-with-arduino/ for an examplanation of how it works.
 
 h2. Get help
 

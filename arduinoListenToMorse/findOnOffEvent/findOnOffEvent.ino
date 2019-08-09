@@ -1,14 +1,18 @@
 // use a microphone to listen for morse code, then decypher the message.
-#define THRESHOLD    (44)
+#define THRESHOLD    (44)  // minimum threshold, the sound in a quiet room.
 #define MAX_SAMPLES  (5)
 
 
-int top=0;
-
+// the samples collected so far
 int samples[MAX_SAMPLES];
-int si=0;
-int mi=0;
+// a running total of all the samples
 int total=0;
+// how many samples are valid?  first time through the samples list mi<MAX_SAMPLES.  after that mi=MAX_SAMPLES always.
+int mi=0;
+// which sample is the oldest?  replace it with the newest sample and update the running total.
+int si=0;
+// the loudest average sound heard so far
+int top=0;
 
 int c=0;
 

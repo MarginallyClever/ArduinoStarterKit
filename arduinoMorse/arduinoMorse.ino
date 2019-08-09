@@ -152,6 +152,7 @@ void nextWord() {
 }
 
 
+// tell someone we're ready for more messages
 void ready() {
   soFar=0;
   Serial.println("> ");
