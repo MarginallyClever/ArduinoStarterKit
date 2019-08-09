@@ -2,12 +2,15 @@
 #define THRESHOLD    (44)
 #define MAX_SAMPLES  (5)
 
+// baud has to do with the transmission speed of the morse code.
+// wait controls the number of samples taken to determine the signal being sent.
 #define BAUD         (100.0)
-#define WAIT         (5.0)
-#define AVG_LONG     (BAUD*3.0/WAIT)
-#define AVG_SHORT    (BAUD*1.0/WAIT)
-#define AVG_NEWWORD  (BAUD*7.0/WAIT)
-#define MINIMUM      (AVG_SHORT/4.0)
+#define WAIT         (5.0)  // ms
+
+#define AVG_LONG     (BAUD*3.0/WAIT)  // the length of a long tone.
+#define AVG_SHORT    (BAUD*1.0/WAIT)  // the length of a short tone.
+#define AVG_NEWWORD  (BAUD*7.0/WAIT)  // the length of silence between two words.
+#define MINIMUM      (AVG_SHORT/4.0)  // a minimum time to listen before guessing.  Reduces error.
 
 #define MAX_PATTERN  (64)
 
@@ -78,15 +81,25 @@ static const char *codes[NUM_CODES] = {
 };
 
 
-int top=0;
+int top=0;  // loudest average sample heard so far
 
+// sample is a buffer of recent sounds picked up by the microphone.
+// si loops around in samples like a ring, constantly replacing the oldest sample.
+// before the sample buffer is full, calculating the average sample is wonky because some of the samples will be zero.
+// so mi tracks how many samples in the buffer are legit.  once mi equals MAX_SAMPLES it will stay there.
 int samples[MAX_SAMPLES];
-int si=0;
-int mi=0;
+int si=0;  // index of sample being changed
+int mi=0;  // total samples used so far
+
+// i want the average volume of all the samples.  I could use a loop and add it up *every single time I needed it*, but why?
+// it's easier to keep a running total.  when i remove an old sample, subtract it from 'total'.  When I add a new sample, add it to 'total'.
 int total=0;
 
-int c=0;
+// is there a beep happening?  0 for no, 1 for yes.
 int is_on=0;
+
+// the program runs in a very fast loop.  i need to count how many loops the sound has been on.
+int c=0;
 
 
 char pattern[MAX_PATTERN];
@@ -170,7 +183,7 @@ void loop() {
 
   c++;
   
-  delay(WAIT);
+  delay(WAIT);  // this could be changed to delayMicroseconds for even faster sampling.
 }
 
 
